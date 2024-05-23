@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>maxime.biturbo</title>
+</head>
+<body>
+    <div id="container">
+        <span id="text">maxime.biturbo</span>
+    </div>
+
+    <script>
+        var container = document.getElementById("container");
+        var text = document.getElementById("text");
+
+        var xSpeed = getRandomSpeed();
+        var ySpeed = getRandomSpeed();
+
+        function getRandomSpeed() {
+            return Math.floor(Math.random() * 5) + 1; // Valeur aléatoire entre 1 et 5
+        }
+
+        function updatePosition() {
+    var containerWidth = container.offsetWidth;
+    var containerHeight = container.offsetHeight;
+    var textWidth = text.offsetWidth;
+    var textHeight = text.offsetHeight;
+
+    var x = parseInt(text.style.left) || 0;
+    var y = parseInt(text.style.top) || 0;
+
+    if (x + textWidth >= containerWidth || x <= 0) {
+        xSpeed = -xSpeed;
+    }
+
+    if (y + textHeight >= containerHeight || y <= 0) {
+        ySpeed = -ySpeed;
+    }
+
+    x += xSpeed;
+    y += ySpeed;
+
+    // Add logic to handle movement in all directions
+    if (x + textWidth >= containerWidth) {
+        x = containerWidth - textWidth;
+    } else if (x <= 0) {
+        x = 0;
+    }
+
+    if (y + textHeight >= containerHeight) {
+        y = containerHeight - textHeight;
+    } else if (y <= 0) {
+        y = 0;
+    }
+
+    text.style.left = x + "px";
+    text.style.top = y + "px";
+
+    requestAnimationFrame(updatePosition);
+}
+
+
+        updatePosition();
+    </script>
+
+    <style>
+        body {
+            overflow: hidden;
+        }
+
+        #container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            overflow: hidden;
+        }
+
+        #text {
+            position: absolute;
+            font-size: 48px;
+            color: #000;
+            animation: none;
+        }
+    </style>
+</body>
+</html>
